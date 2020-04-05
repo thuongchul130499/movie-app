@@ -18,14 +18,12 @@ class MoviesViewModel extends ViewModel
         $this->genres = $genres;
     }
 
-    public function popularMovies()
-    {
-        return $this->formatMovies($this->popularMovies);
-    }
-
-    public function nowPlayingMovies()
-    {
-        return $this->formatMovies($this->nowPlayingMovies);
+    public function getData(){
+        return [
+            'popularMovies' => $this->formatMovies($this->popularMovies),
+            'nowPlayingMovies' => $this->formatMovies($this->nowPlayingMovies),
+            'genres' => $this->genres()
+        ];
     }
 
     public function genres()
@@ -34,6 +32,7 @@ class MoviesViewModel extends ViewModel
             return [$genre['id'] => $genre['name']];
         });
     }
+
 
     private function formatMovies($movies)
     {
