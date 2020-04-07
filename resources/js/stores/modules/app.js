@@ -12,7 +12,7 @@ export default {
     },
     actions: {
         GET_INDEX: async (context) => {
-            axios.get('/api/index')
+            await axios.get('/api/index')
                 .then(e => {
                     context.commit('GET_INDEX', e.data);
                 })
