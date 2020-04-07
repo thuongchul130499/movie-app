@@ -17,5 +17,5 @@
  - install npm : npm install
  ## Run project
  - npm run dev
- - php
+ - php artisan serve
 
