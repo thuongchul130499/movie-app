@@ -25,6 +25,10 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
+    Route::group(['namespace' => 'Admin'], function () {
+        Route::resource('movies', 'MovieController');
+    });
+
 });
 
 Route::get('/index', 'MoviesController@index');

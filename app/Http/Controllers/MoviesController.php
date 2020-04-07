@@ -43,4 +43,9 @@ class MoviesController extends Controller
         return json_encode($viewModel->get());
     }
 
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
+
 }

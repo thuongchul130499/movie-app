@@ -1,13 +1,13 @@
 <template>
     <div id="white">
-        <img class="wave" src="/ultils/images/wave.png">
+        <img class="wave" src="/utils/images/wave.png">
         <div class="container">
             <div class="img">
-                <img src="/ultils/images/bg.svg">
+                <img src="/utils/images/bg.svg">
             </div>
             <div class="login-content">
                 <form @submit.prevent="login">
-                    <img src="/ultils/images/avatar.svg">
+                    <img src="/utils/images/avatar.svg">
                     <h2 class="title">Welcome</h2>
                     <div 
 						class="input-div one"

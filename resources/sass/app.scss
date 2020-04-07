@@ -6,3 +6,10 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.cursor{
+    cursor: pointer;
+}
+.invalid-feedback {
+    color: red!important;
+}

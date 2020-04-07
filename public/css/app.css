@@ -10882,3 +10882,11 @@ a.text-dark:focus {
   }
 }
 
+.cursor {
+  cursor: pointer;
+}
+
+.invalid-feedback {
+  color: red !important;
+}
+

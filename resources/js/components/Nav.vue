@@ -21,18 +21,32 @@
                 <div class="flex flex-col md:flex-row items-center">
                     <!-- <livewire:search-dropdown /> -->
                     <div class="md:ml-4 mt-3 md:mt-0">
-                        <div class="dropdown" v-if="isLoggedIn">
+                        <div class="dropdown" v-if="IS_LOGGEND_IN">
                             <a href="#" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="/img/avatar.j\pg" alt="avatar" class="rounded-full w-8 h-8">
+                                <img src="/utils/images/male.svg" alt="avatar" class="rounded-full w-8 h-8">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
+                                <router-link 
+                                    :to="{ name: 'Dashboard'}" 
+                                    class="dropdown-item">
+                                    <b>{{ CURRENT_USER.name }}</b><br>
+                                    <small>Xem hồ sơ </small>
+                                </router-link>
+                                <div class="dropdown-divider"></div>
+                                <router-link 
+                                    :to="{ name: 'DashboardAdmin'}" 
+                                    class="dropdown-item" 
+                                    v-if="CURRENT_USER.role === 0">
+                                    Quản trị
+                                </router-link>
+                                <a class="dropdown-item" href="#">Chỉnh sửa hồ sơ</a>
+                                <a class="dropdown-item" href="#">Cài đặt</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" @click.prevent="LOG_OUT">Logout</a>
                             </div>
                         </div>
                         <div v-else>
-                            <a href="login">Đăng nhập</a>
+                            <a href="/login">Đăng nhập</a>
                         </div>
                     </div>
                 </div>
@@ -41,23 +55,30 @@
     </div>
 </template>
 <script>
+import { mapGetters, mapMutations } from "vuex";
 export default {
     name: 'Nav',
-    data(){
-        return {
-            isLoggedIn: this.$store.state.Account.isLoggedIn
-        }
+    computed:{
+        ...mapGetters('Account', [
+            'IS_LOGGEND_IN',
+            'CURRENT_USER'
+        ])
     },
     methods: {
-        logout(){
-            this.$store.commit['Account/LOG_OUT']
-        }
+        ...mapMutations('Account', [
+            'LOG_OUT'
+        ])
     }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped lang="scss">
     .dropdown-toggle::after{
         position: relative;
         left: 9px;
+        top: -6px;
+    }
+    .dropdown-menu{
+        top: -15px !important;
+        left: -64px !important;
     }
 </style>
