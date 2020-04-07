@@ -15,6 +15,9 @@
  - run migrate : php artisan migrate
  - run seed : php artisan db:seed
  - install npm : npm install
+ ## Make account admin
+ - php artisan tinker
+ - User::create(['name' => 'Admin', 'email' => 'Admin@movie-app.com', 'role' => 0, 'password' => Hash::make(123456)]);
  ## Run project
  - npm run dev
  - php artisan serve
