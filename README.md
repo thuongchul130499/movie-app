@@ -21,4 +21,20 @@
  ## Run project
  - npm run dev
  - php artisan serve
-
+ ## Build docker
+ - require docker and docker-compose
+ - docker run --rm -v $(pwd):/app composer install
+ - sudo chown -R $USER:$USER ~/movie-app
+ - docker-compose build
+ - docker-compose up -d
+ - cp .env.dev .env
+   + DB_CONNECTION=mysql
+   + DB_HOST=mariadb
+   + DB_PORT=3306
+   + DB_DATABASE=movies
+   + DB_USERNAME=root
+DB_PASSWORD=
+ - docker-compose exec app vim .env
+ - docker-compose exec app php artisan key:generate
+ - docker-compose exec app php artisan config:cache
+ - docker-compose exec app php artisan migrate
