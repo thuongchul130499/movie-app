@@ -1,0 +1,62 @@
+version: '3'
+services:
+  #Laravel App
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hakase-labs/laravel
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - mariadb
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html
+    command: "php -S 0.0.0.0:8081 -t public"
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - mynet
+
+  #Nginx Service
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "81:81"
+      - "443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/conf.d/:/etc/nginx/conf.d/  
+    networks:
+      - mynet
+  mariadb:
+    image: mariadb:10.3.5
+    environment:
+      MYSQL_DATABASE: movies
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "13306:3306"
+    networks:
+      - mynet
+    volumes:
+      # DBを追加作成するscriptを配置 
+      - ./sql:/docker-entrypoint-initdb.d
+      - ./mysql/mysql_data:/var/lib/mysql
+
+#Docker Networks
+networks:
+  mynet:
+    driver: bridge
+#Volumes
+volumes:
+  mysqldata:
+    driver: local

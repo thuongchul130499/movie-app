@@ -10,7 +10,7 @@ export default {
     name: 'Loading'
 }
 </script>
-<style>
+<style scoped lang="scss">
 
 .chromeframe {
     margin: 0.2em 0;

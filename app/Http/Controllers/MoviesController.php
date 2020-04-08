@@ -28,7 +28,7 @@ class MoviesController extends Controller
         $viewModel = new MoviesViewModel(
             $popularMovies,
             $nowPlayingMovies,
-            $genres,
+            $genres
         );
         
         return json_encode($viewModel->getData());
