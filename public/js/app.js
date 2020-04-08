@@ -59142,7 +59142,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'DashboardAdmin',
     redirect: '/admin/dashboard',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(7), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! @/pages/Admin */ "./resources/js/pages/Admin.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(8), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! @/pages/Admin */ "./resources/js/pages/Admin.vue"));
     },
     meta: {
       requiresAuth: true
@@ -59151,25 +59151,25 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       path: 'dashboard',
       name: 'admin-index',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(7), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Index */ "./resources/js/components/Admin/Index.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(8), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Index */ "./resources/js/components/Admin/Index.vue"));
       }
     }, {
       path: 'movies',
       name: 'admin-movies',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Movie/List */ "./resources/js/components/Admin/Movie/List.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(17)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Movie/List */ "./resources/js/components/Admin/Movie/List.vue"));
       }
     }, {
       path: 'create/movie',
       name: 'create-movie',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(3), __webpack_require__.e(8), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Movie/Create */ "./resources/js/components/Admin/Movie/Create.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(3), __webpack_require__.e(9), __webpack_require__.e(20)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Movie/Create */ "./resources/js/components/Admin/Movie/Create.vue"));
       }
     }, {
       path: 'movie/:id',
       name: 'edit-movie',
       component: function component() {
-        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(3), __webpack_require__.e(8), __webpack_require__.e(19)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Movie/Edit */ "./resources/js/components/Admin/Movie/Edit.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(3), __webpack_require__.e(9), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! @/components/Admin/Movie/Edit */ "./resources/js/components/Admin/Movie/Edit.vue"));
       }
     }]
   }, {
@@ -59177,7 +59177,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'Home',
     redirect: 'home',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! @/pages/Home */ "./resources/js/pages/Home.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(18)]).then(__webpack_require__.bind(null, /*! @/pages/Home */ "./resources/js/pages/Home.vue"));
     },
     children: [{
       path: '/',
@@ -59545,8 +59545,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/movies/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/movies/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/nguyen.ngoc.thuong/Desktop/vuejs/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/nguyen.ngoc.thuong/Desktop/vuejs/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MovieRequest;
 use App\Repositories\Contracts\MovieInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 class MovieController extends Controller
 {
 
@@ -19,6 +20,11 @@ class MovieController extends Controller
 
     public function index()
     {
+         $genres = Http::get('https://api.themoviedb.org/3/genre/movie/list?language=vi&api_key='.config('services.tmdb.token'))
+            ->json()['genres'];
+        foreach($genres as $item){
+            Genres::create(['name' => $item['name']]);
+       }
         $movies = $this->movie->all(['genreses']);
         
         return response()->json($movies);
@@ -26,11 +32,6 @@ class MovieController extends Controller
 
     public function create()
     {
-        // $genres = Http::get('https://api.themoviedb.org/3/genre/movie/list?language=vi&api_key='.config('services.tmdb.token'))
-        //     ->json()['genres'];
-        // foreach($genres as $item){
-        //     Genres::create(['name' => $item['name']]);
-        // }
         $datas = collect(Genres::all())->map(function ($item){
             return ['id' => $item->id, 'name' => $item->name];
         });
