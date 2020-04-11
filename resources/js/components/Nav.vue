@@ -22,20 +22,20 @@
                     <!-- <livewire:search-dropdown /> -->
                     <div class="md:ml-4 mt-3 md:mt-0">
                         <div class="dropdown" v-if="IS_LOGGEND_IN">
-                            <a href="#" class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a href="#" class="dropdown-toggle toggle-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="/utils/images/male.svg" alt="avatar" class="rounded-full w-8 h-8">
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <router-link 
-                                    :to="{ name: 'Dashboard'}" 
+                            <div class="dropdown-menu menu-drop" aria-labelledby="dropdownMenuButton">
+                                <router-link
+                                    :to="{ name: 'Dashboard'}"
                                     class="dropdown-item">
                                     <b>{{ CURRENT_USER.name }}</b><br>
                                     <small>Xem hồ sơ </small>
                                 </router-link>
                                 <div class="dropdown-divider"></div>
-                                <router-link 
-                                    :to="{ name: 'DashboardAdmin'}" 
-                                    class="dropdown-item" 
+                                <router-link
+                                    :to="{ name: 'DashboardAdmin'}"
+                                    class="dropdown-item"
                                     v-if="CURRENT_USER.role === 0">
                                     Quản trị
                                 </router-link>
@@ -71,14 +71,3 @@ export default {
     }
 }
 </script>
-<style scoped lang="scss">
-    .dropdown-toggle::after{
-        position: relative;
-        left: 9px;
-        top: -6px;
-    }
-    .dropdown-menu{
-        top: -15px !important;
-        left: -64px !important;
-    }
-</style>

@@ -27,6 +27,7 @@ Route::group([
 
     Route::group(['namespace' => 'Admin'], function () {
         Route::resource('movies', 'MovieController');
+        Route::resource('actors', 'ActorController');
     });
 
 });

@@ -4,6 +4,7 @@ import App from './modules/app';
 import Account from './modules/account';
 import Template from './modules/template';
 import Movie from './modules/movie';
+import Actor from './modules/actor';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
         App,
         Account,
         Template,
-        Movie
+        Movie,
+        Actor
     }
 })

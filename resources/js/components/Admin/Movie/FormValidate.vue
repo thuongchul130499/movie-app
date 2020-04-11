@@ -1,14 +1,15 @@
 <template>
     <div>
-        <form enctype="multipart/form-data" @submit.prevent="createMovie">
+        <Loading v-if="loading" />
+        <form enctype="multipart/form-data" @submit.prevent="createMovie" v-if="!loading">
             <div class="row form-group">
                 <div class="col">
                     <label>Ngôn ngữ gốc :</label>
-                    <input 
+                    <input
                         type="text"
-                        name="original_language" 
-                        class="form-control" 
-                        placeholder="Original language" 
+                        name="original_language"
+                        class="form-control"
+                        placeholder="Original language"
                         v-model.trim="$v.movie.original_language.$model"
                         :class="{
                             'is-invalid':$v.movie.original_language.$error,
@@ -23,11 +24,11 @@
                 </div>
                 <div class="col">
                     <label>Tiêu đề gốc :</label>
-                    <input 
-                        type="text" 
-                        name="original_title" 
-                        class="form-control" 
-                        placeholder="Original title" 
+                    <input
+                        type="text"
+                        name="original_title"
+                        class="form-control"
+                        placeholder="Original title"
                         v-model.trim="$v.movie.original_title.$model"
                         :class="{
                             'is-invalid':$v.movie.original_title.$error,
@@ -44,11 +45,11 @@
             <div class="row form-group">
                 <div class="col">
                     <label>Tên phim</label>
-                    <input 
+                    <input
                         type="text"
-                        name="title" 
-                        class="form-control" 
-                        placeholder="Title" 
+                        name="title"
+                        class="form-control"
+                        placeholder="Title"
                         v-model.trim="$v.movie.title.$model"
                         :class="{
                             'is-invalid':$v.movie.title.$error,
@@ -65,11 +66,11 @@
             <div class="row form-group">
                 <div class="col">
                     <label>Mô tả</label>
-                    <textarea 
-                        type="text" 
+                    <textarea
+                        type="text"
                         name="overview"
-                        class="form-control" 
-                        placeholder="Overview" 
+                        class="form-control"
+                        placeholder="Overview"
                         v-model.trim="$v.movie.overview.$model"
                         :class="{
                             'is-invalid':$v.movie.overview.$error,
@@ -85,10 +86,10 @@
             <div class="row form-group">
                 <div class="col">
                     <label>Dành cho người lớn :</label>
-                    <select 
+                    <select
                         name="adult"
                         class="form-control"
-                        placeholder="Overview" 
+                        placeholder="Overview"
                         v-model.trim="$v.movie.adult.$model"
                         :class="{
                             'is-invalid':$v.movie.adult.$error,
@@ -125,9 +126,9 @@
                 </div>
                 <div class="col">
                     <label>Ngày công chiếu</label>
-                    <input 
+                    <input
                         type="date"
-                        class="form-control" 
+                        class="form-control"
                         name="release_date"
                         v-model.trim="$v.movie.release_date.$model"
                         :class="{
@@ -145,8 +146,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <multiselect 
-                    v-model="tags" 
+                <label>Thể loại</label>
+                <multiselect
+                    v-model="tags"
                     tag-placeholder="Add this as new tag"
                     placeholder="Search or add a tag"
                     label="name"
@@ -159,6 +161,59 @@
                 >
                 </multiselect>
             </div>
+            <div class="form-group">
+                <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    data-toggle="modal"
+                    data-target="#modelId"
+                    :class="{
+                            'btn-danger':$v.movie.actor_ids.$error,
+                            'btn-primary':!$v.movie.actor_ids.$invalid,
+                       }"
+                >
+                  Chọn diễn viên
+                </button>
+                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" type="button"><span class="fa fa-search "></span></button>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" v-model="filter_actor">
+                                </div>
+                            </div>
+                            <div class="modal-body" id="list-actors">
+                                <div class="container-fluid row">
+                                    <input type="hidden" name="actor_ids" v-model="movie.actor_ids">
+                                    <div class="col-md-3" v-for="(actor, index) in getActor" :key="index">
+                                        <div class="custom-control custom-checkbox image-checkbox">
+                                            <input
+                                                type="checkbox"
+                                                class="custom-control-input"
+                                                :id="actor.name + index"
+                                                ref="actor_ids"
+                                                @change="pushActor"
+                                                :value="actor.id"
+                                                :checked="movie.actor_ids.includes(actor.id)"
+                                            >
+                                            <label class="custom-control-label text-center" :for="actor.name + index">
+                                                <img :src="actor.profile_path" alt="#" class="img-fluid">
+                                                {{ actor.name }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row form-group">
                 <div class="col">
                     <label>Videos</label>
@@ -170,11 +225,11 @@
                  <div class="col">
                     <label>Image</label>
                     <div class="custom-file">
-                        <input 
+                        <input
                             multiple
-                            type="file" 
-                            class="custom-file-input" 
-                            accept="image/png, image/jpeg, image/jpg" 
+                            type="file"
+                            class="custom-file-input"
+                            accept="image/png, image/jpeg, image/jpg"
                             ref="files"
                             @change="selectFile"
                             name="images[]"
@@ -190,13 +245,13 @@
                             >
                             <div class="level-left">
                                 <div class="level-item">{{ file.name }}
-                                    <a 
+                                    <a
                                         @click.prevent="movie.images.splice(index, 1), files.splice(index, 1), movie.image_ids = movie.image_ids.filter(e => e != file.id)"
                                         class="cursor"
                                         :id="file.id"
                                     >
-                                        <span v-if="file.invalidMessage">&nbsp; - {{ file.invalidMessage }} </span> 
-                                        <span class="fa fa-times-circle"></span> 
+                                        <span v-if="file.invalidMessage">&nbsp; - {{ file.invalidMessage }} </span>
+                                        <span class="fa fa-times-circle"></span>
                                     </a>
                                 </div>
                             </div>
@@ -208,11 +263,11 @@
                 <div class="col">
                     <label>Poster</label>
                     <div class="custom-file">
-                        <input 
+                        <input
                             type="file"
                             class="custom-file-input"
-                            accept="image/png, image/jpeg, image/jpg" 
-                            ref="poster" 
+                            accept="image/png, image/jpeg, image/jpg"
+                            ref="poster"
                             name="poster"
                             @change="selectPoster"
                         >
@@ -232,12 +287,13 @@
 
 <script>
 import _ from 'lodash';
-import Multiselect from 'vue-multiselect'
+import { Multiselect } from 'vue-multiselect'
 import { required, minLength, maxLength, between } from 'vuelidate/lib/validators';
+import Loading from '@/components/Loading';
 export default {
     props: ['type'],
     name: 'FormValidate',
-    components: { Multiselect },
+    components: { Multiselect, Loading },
     data(){
         return {
             error: false,
@@ -259,18 +315,24 @@ export default {
                 video: '',
                 poster: '',
                 image_ids: [],
+                actor_ids: [],
             },
             poster_name: '',
             tags: [],
             files: [],
             options: [],
+            actors: [],
             error_poster: '',
+            loading: false,
+            filter_actor: '',
         }
     },
     async created(){
         await axios.get('/api/movies/create')
             .then(res => {
-                this.options = res.data;
+                this.options = res.data.genres;
+                this.$store.commit('Actor/SET_ACTOR', res.data.actors);
+                this.actors = res.data.actors;
             })
     },
     mounted () {
@@ -304,7 +366,21 @@ export default {
             },
             release_date:{
                 required,
+            },
+            actor_ids:{
+                required
             }
+        }
+    },
+    computed: {
+        getActor() {
+            let filtered = this.actors;
+            if(this.filter_actor){
+                filtered = this.actors.filter(
+                    actor => actor.name.toLocaleLowerCase().includes(this.filter_actor.toLocaleLowerCase())
+                );
+            }
+            return filtered;
         }
     },
     methods: {
@@ -345,10 +421,13 @@ export default {
                 if(!this.$v.$invalid){
                     let fd = new FormData($event.target);
                     fd.append('tags', JSON.stringify(this.tags));
+                    this.loading = true;
                     this.$store.dispatch('Movie/CREATE_MOVIE', fd)
                     .then(res => {
+                        this.loading = false;
                         this.$router.push({ name: 'admin-movies' });
                     }).catch(err => {
+                        this.loading = false;
                         this.$swal({
                             text: err.response.data.message,
                             button: true,
@@ -363,8 +442,10 @@ export default {
             }
         },
         getMovie(id){
+            this.loading = true;
             this.$store.dispatch('Movie/GET_MOVIE', id)
                 .then(res => {
+                    this.loading = false;
                     const movie = res.data.data;
                     this.movie = { ...this.movie, ...movie }
                     this.poster_name = movie.poster_path.replace('movies/', '')
@@ -372,6 +453,7 @@ export default {
                     this.movie.images = this.handleImages(movie.images)
                 })
                 .catch(err => {
+                    this.loading = false;
                     if(err.response.status === 404){
                         this.$store.commit('Movie/NOT_FOUND');
                         this.$router.push({ name: 'admin-movies'});
@@ -390,8 +472,66 @@ export default {
                     type: image.type
                 }
             });
+        },
+        pushActor(){
+            let arr = [];
+            this.$refs.actor_ids.forEach(element => {
+                if(element.checked){
+                    arr.push(parseInt(element.value));
+                }
+            });
+            this.movie.actor_ids = arr;
         }
     }
 }
 </script>
+<style>
+    .option__image{
+        max-height: 100px;
+        max-width: 100px;
+    }
+    .custom-control.image-checkbox {
+    position: relative;
+    padding-left: 0;
+    }
+
+    .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:after, .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:before {
+    opacity: 1;
+    }
+
+    .custom-control.image-checkbox label {
+    cursor: pointer;
+    }
+
+    .custom-control.image-checkbox label:before {
+    border-color: #007bff;
+    background-color: #007bff;
+    }
+
+    .custom-control.image-checkbox label:after, .custom-control.image-checkbox label:before {
+    transition: opacity .3s ease;
+    opacity: 0;
+    left: .25rem;
+    }
+
+    .custom-control.image-checkbox label:focus, .custom-control.image-checkbox label:hover {
+    opacity: .8;
+    }
+
+    .custom-control.image-checkbox label img {
+    border-radius: 2.5px;
+    }
+
+    .form-group-image-checkbox.is-invalid label {
+    color: #dc3545;
+    }
+
+    .form-group-image-checkbox.is-invalid .invalid-feedback {
+    display: block;
+    }
+    #list-actors{
+        max-height: 500px;
+        overflow-y: scroll;
+    }
+</style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

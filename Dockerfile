@@ -32,6 +32,11 @@ RUN apk update && apk add --no-cache \
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-enable pdo_mysql
 
+RUN docker-php-ext-install mbstring
+
+RUN docker-php-ext-install zip
+
+RUN docker-php-ext-install gd
 # Install PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -39,14 +44,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN rm -rf /var/cache/apk/*
 
 # Add UID '1000' to www-data
-RUN usermod -u 1000 www-data
+# RUN usermod -u 1000 www-data
 
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www/html
 
-RUN sudo chmod -R 755 /var/www/html/storage
+# RUN sudo chmod -R 755 /var/www/html/storage
 # Change current user to www
-USER www-data
+# USER www-data
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000

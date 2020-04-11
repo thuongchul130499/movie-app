@@ -13,3 +13,12 @@
 .invalid-feedback {
     color: red!important;
 }
+.toggle-drop::after{
+    position: relative;
+    left: 9px;
+    top: -6px;
+}
+.menu-drop{
+    top: -15px !important;
+    left: -64px !important;
+}

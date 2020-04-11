@@ -1,5 +1,6 @@
 <template>
     <div id="white">
+		<Loading v-if="loading"/>
         <img class="wave" src="/utils/images/wave.png">
         <div class="container">
             <div class="img">
@@ -43,13 +44,16 @@
     </div>
 </template>
 <script>
+import Loading from '@/components/Loading';
 export default {
 	name: 'Login',
+	components: { Loading },
 	data(){
 		return {
 			focus: false,
 			email: '',
 			password: '',
+			loading: false,
 		}
 	},
 	methods: {
@@ -66,13 +70,16 @@ export default {
 			this.$refs[ref].classList.remove('focus')
 		},
 		login(){
+			this.loading = true;
 			axios.post('/api/login', {
 				email: this.email,
 				password: this.password
 			}).then(res => {
+				this.loading = false;
 				this.$store.dispatch('Account/LOGGED_IN_SUCCESS', res)
 				this.$router.push('/');
 			}).catch(err => {
+				this.loading = false;
 				this.$swal({
 					text: err.response.data.error,
 					button: true,

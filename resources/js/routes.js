@@ -12,11 +12,6 @@ const router = new VueRouter({
             component: () => import('@/pages/Login')
         },
         {
-            path: '/login',
-            name: 'login',
-            component: () => import('@/pages/Login')
-        },
-        {
             path: '/dashboard',
             name: 'Dashboard',
             redirect: '/',

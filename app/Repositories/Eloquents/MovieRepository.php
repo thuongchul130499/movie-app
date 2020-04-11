@@ -49,6 +49,7 @@ class MovieRepository extends BaseRepository implements MovieInterface {
             $tag_ids = array_map(function($item){
                 return $item['id'];
             }, $data['tags']);
+            $movie->actors()->attach(explode(',' , $data['actor_ids']));
             $movie->genreses()->attach($tag_ids);
             DB::commit();
 
