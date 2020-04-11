@@ -19,7 +19,7 @@
             <tbody v-if="!isLoading">
                 <tr v-for="(movie, index) in movies.data" :key="index">
                     <td scope="row" class="poster">
-                        <img :src="`http://127.0.0.1:8001/uploads/${movie.poster_path}`" alt="">
+                        <img :src="`http://127.0.0.1:8000/uploads/${movie.poster_path}`" alt="">
                     </td>
                     <td>{{ movie.title }}</td>
                     <td>{{ movie.original_title }}</td>
