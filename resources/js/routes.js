@@ -53,7 +53,12 @@ const router = new VueRouter({
                     path: 'movie/:id',
                     name: 'edit-movie',
                     component: () => import('@/components/Admin/Movie/Edit')
-                }
+                },
+                {
+                    path: 'actors',
+                    name: 'admin-actors',
+                    component: () => import('@/components/Admin/Actor/List')
+                },
             ]
         },
         {
@@ -63,7 +68,7 @@ const router = new VueRouter({
             component: () => import('@/pages/Home'),
             children: [
                 {
-                    path: '/',
+                    path: '/home',
                     name: 'home',
                     component: () => import('@/components/Home')
                 },
@@ -71,6 +76,17 @@ const router = new VueRouter({
                     path: '/movie/:id',
                     name: 'movie',
                     component: () => import('@/components/Movie')
+                },
+                {
+                    path: '/actors',
+                    name: 'actors',
+                    component: () => import('@/components/Actor/Actor')
+                }
+                ,
+                {
+                    path: '/actors/:id',
+                    name: 'actor',
+                    component: () => import('@/components/Actor/Detail')
                 }
             ]
         }

@@ -20,6 +20,13 @@ export default {
         },
         GET_MOVIE: (context, id) => {
             return axios.get(`/api/movies/${id}/edit`)
+        },
+        UPDATE_MOVIE: ({context}, payload) => {
+            return axios.post(`/api/movies/${payload.id}`, payload.data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
         }
     },
     namespaced: true,

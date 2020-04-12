@@ -3,7 +3,7 @@
         <Loading v-if="Object.keys(movie).length === 0 && movie.constructor === Object"/>
         <div v-else>
             <MovieInfo :movie="movie"/>
-            <MovieCast :movie="movie"/>
+            <MovieCast :casts="movie.cast"/>
             <MovieImage :movie="movie"/>
         </div>
     </div>

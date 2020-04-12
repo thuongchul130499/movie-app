@@ -11,19 +11,16 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
 .chromeframe {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
 }
-
 p {
     line-height: 1.33em;
     color: #7E7E7E;
 }
-
 #loader-wrapper {
     position: fixed;
     top: 0;
@@ -43,11 +40,9 @@ p {
     border-radius: 50%;
     border: 3px solid transparent;
     border-top-color: #3498db;
-
     -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
     animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 }
-
     #loader:before {
         content: "";
         position: absolute;
@@ -58,11 +53,9 @@ p {
         border-radius: 50%;
         border: 3px solid transparent;
         border-top-color: #e74c3c;
-
         -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
         animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
-
     #loader:after {
         content: "";
         position: absolute;
@@ -73,11 +66,9 @@ p {
         border-radius: 50%;
         border: 3px solid transparent;
         border-top-color: #f9c922;
-
         -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
           animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
     }
-
     @-webkit-keyframes spin {
         0%   { 
             -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */

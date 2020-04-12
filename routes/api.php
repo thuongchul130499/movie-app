@@ -25,9 +25,15 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::resource('actors', 'ActorController');
+    });
+
     Route::group(['namespace' => 'Admin'], function () {
         Route::resource('movies', 'MovieController');
         Route::resource('actors', 'ActorController');
+        Route::get('movies_trash', 'MovieController@moviesTrash');
+        Route::put('movies/{id}/restore', 'MovieController@restore');
     });
 
 });
