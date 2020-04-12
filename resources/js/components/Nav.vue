@@ -9,13 +9,13 @@
                         </a>
                     </li>
                     <li class="md:ml-16 mt-3 md:mt-0">
-                        <a href="#" class="hover:text-gray-300">Movies</a>
+                        <router-link class="hover:text-gray-300" :to="{ name: 'home' }">Movies</router-link>
                     </li>
                     <li class="md:ml-6 mt-3 md:mt-0">
                         <a href="#" class="hover:text-gray-300">TV Shows</a>
                     </li>
                     <li class="md:ml-6 mt-3 md:mt-0">
-                        <a href="#" class="hover:text-gray-300">Actors</a>
+                        <router-link class="hover:text-gray-300" :to="{ name: 'actors' }">Actors</router-link>
                     </li>
                 </ul>
                 <div class="flex flex-col md:flex-row items-center">

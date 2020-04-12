@@ -11,6 +11,10 @@ class RepositoryProvider extends ServiceProvider
             'App\Repositories\Contracts\MovieInterface',
             'App\Repositories\Eloquents\MovieRepository'
         ],
+        [
+            'App\Repositories\Contracts\ActorInterface',
+            'App\Repositories\Eloquents\ActorRepository'
+        ],
     ];
 
     /**

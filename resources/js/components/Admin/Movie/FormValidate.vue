@@ -1,7 +1,8 @@
 <template>
     <div>
         <Loading v-if="loading" />
-        <form enctype="multipart/form-data" @submit.prevent="createMovie" v-if="!loading">
+        <form enctype="multipart/form-data" @submit.prevent="handleForm" v-if="!loading">
+            <input type="hidden" name="_method" value="put" v-if="type == 'edit'"/>
             <div class="row form-group">
                 <div class="col">
                     <label>Ngôn ngữ gốc :</label>
@@ -234,7 +235,7 @@
                             @change="selectFile"
                             name="images[]"
                         >
-                        <input type="hidden" name="image_ids[]" v-if="type === 'edit'">
+                        <input type="hidden" name="image_ids[]" v-if="type === 'edit'" :value="movie.image_ids">
                         <label class="custom-file-label">Choose file</label>
                     </div>
                     <div class="filed">
@@ -246,7 +247,11 @@
                             <div class="level-left">
                                 <div class="level-item">{{ file.name }}
                                     <a
-                                        @click.prevent="movie.images.splice(index, 1), files.splice(index, 1), movie.image_ids = movie.image_ids.filter(e => e != file.id)"
+                                        @click.prevent="
+                                            movie.images.splice(index, 1),
+                                            files.splice(index, 1),
+                                            movie.image_ids.push(file.id)
+                                        "
                                         class="cursor"
                                         :id="file.id"
                                     >
@@ -279,7 +284,7 @@
                 </div>
             </div>
             <div class="row">
-                <button type="submit" class="btn btn-success"> Create </button>
+                <button type="submit" class="btn btn-success"> {{ type == 'create' ? 'Tạo mới' : 'Cập nhật'}} </button>
             </div>
         </form>
     </div>
@@ -333,7 +338,7 @@ export default {
                 this.options = res.data.genres;
                 this.$store.commit('Actor/SET_ACTOR', res.data.actors);
                 this.actors = res.data.actors;
-            })
+            }) 
     },
     mounted () {
         if(this.type == 'edit'){
@@ -385,8 +390,8 @@ export default {
     },
     methods: {
         selectFile(){
-            const files = this.$refs.files.files;
-            this.files = [...this.files, ...files]
+            let files = this.$refs.files.files;
+            this.files = [...this.files, ...files];
             this.movie.images = [
                 ...this.movie.images,
                 ..._.map(files, file => ({
@@ -400,7 +405,8 @@ export default {
         selectPoster(){
             this.poster_name = this.$refs.poster.files[0].name
         },
-        validate(file){
+        validate(file, type = false){
+            if(type) return '';
             const MAX_SIZE = 2000000;
             const allowedTypes = ['image/jpeg', 'image/png', "image/jpg"];
             if(file !== undefined){
@@ -415,26 +421,44 @@ export default {
                 'Không được trống'
             }
         },
-        async createMovie($event){
+        async handleForm($event){
             this.$v.$touch();
-            if(this.validate(this.$refs.poster.files[0]) == ''){
+            if(this.validate(this.$refs.poster.files[0], this.type == 'edit' ? true : false) == ''){
                 if(!this.$v.$invalid){
                     let fd = new FormData($event.target);
                     fd.append('tags', JSON.stringify(this.tags));
                     this.loading = true;
-                    this.$store.dispatch('Movie/CREATE_MOVIE', fd)
-                    .then(res => {
-                        this.loading = false;
-                        this.$router.push({ name: 'admin-movies' });
-                    }).catch(err => {
-                        this.loading = false;
-                        this.$swal({
-                            text: err.response.data.message,
-                            button: true,
-                            icon: 'error',
-                            dangerMode: true
+                    if(this.type == 'create'){
+                        this.$store.dispatch('Movie/CREATE_MOVIE', fd)
+                        .then(res => {
+                            this.loading = false;
+                            this.$router.push({ name: 'admin-movies' });
+                        }).catch(err => {
+                            this.loading = false;
+                            this.$swal({
+                                text: err.response.data.message,
+                                button: true,
+                                icon: 'error',
+                                dangerMode: true
+                            });
+                        })
+                    }else{
+                        this.$store.dispatch('Movie/UPDATE_MOVIE', {
+                            id: this.$route.params.id,
+                            data: fd
+                        }).then(e => {
+                            this.loading = false;
+                            this.$router.push({ name: 'admin-movies' });
+                        }).catch(err => {
+                            this.loading = false;
+                            this.$swal({
+                                text: err.response.data.message,
+                                button: true,
+                                icon: 'error',
+                                dangerMode: true
+                            });
                         });
-                    })
+                    }
                 }
             }else{
                 this.$refs.poster.classList.add('is-invalid');
@@ -451,6 +475,7 @@ export default {
                     this.poster_name = movie.poster_path.replace('movies/', '')
                     this.tags = movie.genreses
                     this.movie.images = this.handleImages(movie.images)
+                    this.movie.actor_ids = movie.actors.map( e => e.id )
                 })
                 .catch(err => {
                     this.loading = false;
@@ -462,7 +487,6 @@ export default {
         },
         handleImages(images){
             return images.map( e => {
-                this.movie.image_ids.push(e.id)
                 let image = JSON.parse(e.backdrops);
                 return {
                     id: e.id,

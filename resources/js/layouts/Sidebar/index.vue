@@ -60,8 +60,8 @@
                                 </a>
                                 <div class="sidebar-submenu">
                                     <ul>
-                                        <li><a href="">List</a></li>
-                                        <li><a href="">Create</a></li>
+                                        <li><router-link :to="{ name: 'admin-actors'}">List</router-link></li>
+                                        <!-- <li><router-link :to="{ name: 'create-movie'}">Create</router-link></li> -->
                                     </ul>
                                 </div>
                             </li>

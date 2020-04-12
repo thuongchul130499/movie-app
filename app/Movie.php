@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Movie extends Model
 {
+
+    use SoftDeletes;
     protected $fillable = [
         'original_language',
         'original_title',
@@ -26,6 +29,8 @@ class Movie extends Model
         'vote_average',
         'vote_count'
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function images(){
         return $this->hasMany(Image::class);

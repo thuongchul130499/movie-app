@@ -30,12 +30,13 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'original_language' => 'required|unique:movies|max:10|min:3',
-            'original_title' => 'required|unique:movies|max:255|min:3',
-            'title' => 'required|unique:movies|max:255|min:3',
+            'original_language' => 'required|max:10|min:3|unique:movies,id,' . $this->id,
+            'original_title' => 'required|max:255|min:3|unique:movies,id,' . $this->id,
+            'title' => 'required|max:255|min:3|unique:movies,id,' . $this->id,
             'overview' => 'required|max:3000',
             'adult' => 'numeric|between:0,1',
-            'release_date' => 'required'
+            'release_date' => 'required',
+            'poster' => $this->isMethod('put') ? '' : 'required',
         ];
     }
 }

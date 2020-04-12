@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActorMovierTable extends Migration
+class CreateActorMovieTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,7 +23,7 @@ class CreateActorMovierTable extends Migration
             $table->bigInteger('actor_id')
                     ->unsigned()
                     ->foreign('actor_id')
-                    ->references('id')->on('movies')
+                    ->references('id')->on('actors')
                     ->onDelete('cascade');
             $table->unique(['movie_id', 'actor_id']);
             $table->timestamps();
