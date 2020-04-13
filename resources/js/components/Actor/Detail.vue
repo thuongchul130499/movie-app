@@ -4,21 +4,21 @@
         <div class="container mx-auto px-4 py-16 row">
             <section class="col-md-3 row">
                 <div class="col-md-12 col-lg-12 mb-3">
-                    <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/csF8gNZQb933n1LUza9rV6qiFiU.jpg">
+                    <img :src="actor.profile_path">
                 </div>
                 <div class="col-md-12 col-lg-12 row m-auto text-center">
                    <a href="#" class="col-md-3">
                        <i class="fa fa-dribbble"></i>
-                       </a> 
+                       </a>
                     <a href="#" class="col-md-3">
                         <i class="fa fa-twitter"></i>
-                        </a>  
+                        </a>
                     <a href="#" class="col-md-3">
                         <i class="fa fa-linkedin"></i>
-                        </a>  
+                        </a>
                     <a href="#" class="col-md-3">
                         <i class="fa fa-facebook"></i>
-                        </a> 
+                        </a>
                 </div>
                 <div class="col-md-12 col-lg-12 mb-3 mt-3">
                     <h2 class="mb-2">Thông tin</h2>
@@ -47,7 +47,7 @@
                                     <li class="account_adult_false item_adult_false" v-for="movie in actor.movies" :key="movie.id">
                                         <div class="image">
                                             <router-link :to="{ name: 'movie', params: { id: movie.id }}">
-                                                <img :src="`http://127.0.0.1:8000/uploads/${movie.path}`" :alt="movie.title" class="poster lazyload lazyloaded">
+                                                <img :src="movie.path" :alt="movie.title" class="poster lazyload lazyloaded">
                                             </router-link>
                                         </div>
                                         <p>
@@ -68,13 +68,15 @@
 <script>
 import CastRela from '../MovieCast';
 import Loading from '../Loading';
+import settings from "../../const";
 export default {
     name: 'Detail',
     components: { CastRela, Loading },
     data(){
         return {
             loading: false,
-            actor: {}
+            actor: {},
+            host: settings.host,
         }
     },
     created(){

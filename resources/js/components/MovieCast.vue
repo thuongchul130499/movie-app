@@ -10,7 +10,7 @@
                     </router-link>
                     <div class="mt-2">
                         <a href="#" class="text-lg mt-2 hover:text-gray:300 text-center">{{ cast.name }}</a>
-                        <div class="text-sm text-gray-400">
+                        <div class="text-sm text-gray-400 vanvan">
                             {{ cast.character }}
                             <span v-if="cast.movies.length">Tên phim : {{ cast.movies.toString() }}</span>
                             <span v-else>Không rõ</span>

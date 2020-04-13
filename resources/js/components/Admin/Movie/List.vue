@@ -20,9 +20,9 @@
                         <a class="nav-link bg-danger text-dark"
                             id="profile-tab"
                             data-toggle="tab"
-                            href="#trash" 
-                            role="tab" 
-                            aria-controls="profile" 
+                            href="#trash"
+                            role="tab"
+                            aria-controls="profile"
                             aria-selected="false"
                             @click.prevent="current = false"
                         ><i class="fa fa-trash" aria-hidden="true"></i>Trash</a>
@@ -48,7 +48,7 @@
                     <tbody v-if="!isLoading">
                             <tr v-for="(movie, index) in movies.data" :key="movie.id" v-show="current" :id="`item${movie.id}`">
                                 <td scope="row" class="poster">
-                                    <img :src="`http://127.0.0.1:8000/uploads/${movie.poster_path}`" alt="">
+                                    <img :src="movie.poster_path" alt="">
                                 </td>
                                 <td>{{ movie.title }}</td>
                                 <td>{{ movie.original_title }}</td>
@@ -163,7 +163,7 @@ export default {
                                 text: 'Xóa thành công',
                                 button: true,
                                 icon: 'success',
-                            });   
+                            });
                         });
                 }
             });
@@ -185,9 +185,9 @@ export default {
                                 text: 'Khôi phục thành công',
                                 button: true,
                                 icon: 'success',
-                            });  
+                            });
                         });
-                    this.getMoviestrash(movies_trash.current_page) 
+                    this.getMoviestrash(movies_trash.current_page)
                 }
             });
         }
