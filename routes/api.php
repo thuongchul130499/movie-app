@@ -40,3 +40,4 @@ Route::group([
 
 Route::get('/index', 'MoviesController@index');
 Route::get('/movie/{id}', 'MoviesController@show');
+Route::get('/search', 'MoviesController@search');

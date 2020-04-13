@@ -19,7 +19,10 @@
                     </li>
                 </ul>
                 <div class="flex flex-col md:flex-row items-center">
-                    <!-- <livewire:search-dropdown /> -->
+                    <SearchBar />
+                    <div class="md:ml-4 md:mt-0 text-lg cursor">
+                        <Notification />
+                    </div>
                     <div class="md:ml-4 mt-3 md:mt-0">
                         <div class="dropdown" v-if="IS_LOGGEND_IN">
                             <a href="#" class="dropdown-toggle toggle-drop" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -56,8 +59,11 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import SearchBar from '@/layouts/SearchBar';
+import Notification from '@/layouts/Notification';
 export default {
     name: 'Nav',
+    components: { SearchBar, Notification },
     computed:{
         ...mapGetters('Account', [
             'IS_LOGGEND_IN',

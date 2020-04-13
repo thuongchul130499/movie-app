@@ -12,13 +12,13 @@
                         <a href="#" class="text-lg mt-2 hover:text-gray:300 text-center">{{ cast.name }}</a>
                         <div class="text-sm text-gray-400 vanvan">
                             {{ cast.character }}
-                            <span v-if="cast.movies.length">Tên phim : {{ cast.movies.toString() }}</span>
-                            <span v-else>Không rõ</span>
+                            <!-- <span v-if="cast.movies.length">Tên phim : {{ cast.movies.toString() }}</span> -->
+                            <!-- <span v-else>Không rõ</span> -->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-10">
+            <div class="row mt-10" v-if="actors">
                 <VuePaginate :pagination="getCasts" :object="actors"></VuePaginate>
             </div>
         </div>

@@ -26,7 +26,15 @@ export default {
         this.$store.dispatch('App/GET_MOVIE', this.$route.params.id)
             .then(e => {
                 this.movie = e.data;
-            })
+            }).catch(async err => {
+                await this.$swal({
+                    title: 'Oops...',
+                    icon: 'error',
+                    text: 'Không tìm thấy yêu cầu!'
+                });
+
+                this.$router.push({ name: 'home'});
+            });
     },
 }
 </script>

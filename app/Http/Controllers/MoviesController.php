@@ -103,9 +103,18 @@ class MoviesController extends Controller
         return json_encode($viewModel->get());
     }
 
-    public function store(Request $request)
+    public function search()
     {
-        dd($request->all());
+        $term = request()->all()['query'];
+        if(!empty($term)){
+            $data = Movie::search($term)
+                    ->where('title', 'LIKE', '%' . $term . '%')
+                    ->orWhere('original_title', 'LIKE', '%' . $term . '%')
+                    ->paginate(10);
+        }else{
+            $data = [];
+        }
+        return response()->json($data);
     }
 
 }

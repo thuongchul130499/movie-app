@@ -88,6 +88,13 @@ export default {
             await axios.get(`/api/dashboard/actors/${this.$route.params.id}`).
                 then(e => {
                     this.actor = e.data
+                }).catch(async e => {
+                    await this.$swal({
+                        title: 'Oops...',
+                        icon: 'error',
+                        text: 'Không tìm thấy yêu cầu!'
+                    });
+                    this.$router.push({ name: 'home' });
                 });
             this.loading = false;
         }

@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Traits\FullTextSearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Movie extends Model
 {
 
-    use SoftDeletes;
+    use SoftDeletes, FullTextSearch;
     protected $fillable = [
         'original_language',
         'original_title',
@@ -31,6 +32,11 @@ class Movie extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    protected $searchable = [
+        'original_title',
+        'title'
+    ];
 
     public function images(){
         return $this->hasMany(Image::class);
