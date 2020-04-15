@@ -16,6 +16,7 @@ class ActorController extends Controller
     {
         $with = ['movies'];
         $perPage = 20;
+
         return response()->json($this->actor->all(
             $with,
             $perPage,
@@ -26,6 +27,7 @@ class ActorController extends Controller
         $with = [
             'movies',
         ];
+
         return $this->actor->find($id, $with);
     }
 }

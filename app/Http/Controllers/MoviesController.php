@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Image;
 use App\Movie;
+use App\Repositories\Contracts\MovieInterface;
 use Illuminate\Http\Request;
 use App\ViewModels\MovieViewModel;
 use App\ViewModels\MoviesViewModel;
@@ -16,12 +17,18 @@ class MoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    private $movie;
     private function crawl($num){
         $rands = range(0, $num);
         shuffle($rands );
         return $rands = array_slice($rands ,5,rand(5, 10));
     }
+
+    public function __construct(MovieInterface $movie)
+    {
+        $this->movie = $movie;
+    }
+
     public function index()
     {
         $popularMovies = Http::get('https://api.themoviedb.org/3/movie/popular?language=vi&api_key='.config('services.tmdb.token'))
@@ -107,10 +114,7 @@ class MoviesController extends Controller
     {
         $term = request()->all()['query'];
         if(!empty($term)){
-            $data = Movie::search($term)
-                    ->where('title', 'LIKE', '%' . $term . '%')
-                    ->orWhere('original_title', 'LIKE', '%' . $term . '%')
-                    ->paginate(10);
+            $data = $this->movie->search($term);
         }else{
             $data = [];
         }

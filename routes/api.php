@@ -32,6 +32,8 @@ Route::group([
     Route::group(['namespace' => 'Admin'], function () {
         Route::resource('movies', 'MovieController');
         Route::resource('actors', 'ActorController');
+        Route::resource('categories', 'CategoryController')->only('index', 'store');
+        Route::put('set-categories', 'CategoryController@update');
         Route::get('movies_trash', 'MovieController@moviesTrash');
         Route::put('movies/{id}/restore', 'MovieController@restore');
     });

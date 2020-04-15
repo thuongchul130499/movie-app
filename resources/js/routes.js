@@ -39,6 +39,16 @@ const router = new VueRouter({
                     component: () => import('@/components/Admin/Index')
                 },
                 {
+                    path: 'categories',
+                    name: 'admin-cates',
+                    component: () => import('@/components/Admin/Category/List')
+                },
+                {
+                    path: 'create/cate',
+                    name: 'create-cate',
+                    component: () => import('@/components/Admin/Category/Create')
+                },
+                {
                     path: 'movies',
                     name: 'admin-movies',
                     component: () => import('@/components/Admin/Movie/List')

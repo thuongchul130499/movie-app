@@ -43,6 +43,18 @@
                             </li>
                             <li class="sidebar-dropdown" @click.prevent="dropdown">
                                 <a href="#">
+                                <i class="fa fa-list-ol"></i>
+                                <span>Categories</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li><router-link :to="{ name: 'admin-cates'}">List</router-link></li>
+                                        <li><router-link :to="{ name: 'create-cate'}">Create</router-link></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown" @click.prevent="dropdown">
+                                <a href="#">
                                 <i class="fa fa-film"></i>
                                 <span>Movies</span>
                                 </a>

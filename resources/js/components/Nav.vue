@@ -55,15 +55,17 @@
                 </div>
             </div>
         </nav>
+        <Mega />
     </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import SearchBar from '@/layouts/SearchBar';
 import Notification from '@/layouts/Notification';
+import Mega from '@/layouts/Menu/Mega';
 export default {
     name: 'Nav',
-    components: { SearchBar, Notification },
+    components: { SearchBar, Notification, Mega },
     computed:{
         ...mapGetters('Account', [
             'IS_LOGGEND_IN',

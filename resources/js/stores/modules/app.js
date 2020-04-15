@@ -3,8 +3,13 @@ export default {
         isLoading : false,
         data: [],
         query: '',
+        listCates: [],
     },
-    getters: {},
+    getters: {
+        GET_GENRES: state => {
+            return state.data.genres
+        }
+    },
     mutations: {
         GET_INDEX: (state, payload) => {
             state.isLoading = false;
@@ -13,7 +18,8 @@ export default {
         CHANGE_STATUS: state => {
             state.isLoading = !state.isLoading;
         },
-        SET_QUERY: (state, payload) => state.query = payload
+        SET_QUERY: (state, payload) => state.query = payload,
+        SET_CATE: (state, payload) => state.listCates = payload,
     },
     actions: {
         GET_INDEX: async (context) => {
@@ -29,6 +35,12 @@ export default {
         SEARCH: (context, query) => {
             context.commit('SET_QUERY', query);
             return axios.get(`/api/search?query=${query}`)
+        },
+        GET_CATE: context => {
+            axios.get('/api/categories')
+                .then(e => {
+                    context.commit('SET_CATE', e.data);
+                })
         }
     },
     namespaced: true
