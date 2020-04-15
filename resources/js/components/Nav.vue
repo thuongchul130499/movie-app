@@ -17,6 +17,21 @@
                     <li class="md:ml-6 mt-3 md:mt-0">
                         <router-link class="hover:text-gray-300" :to="{ name: 'actors' }">Actors</router-link>
                     </li>
+                    <li class="md:ml-6 mt-3 md:mt-0">
+                        <div class="btn-group">
+                          <button type="button">
+                              <div class="lang"> <img src="/utils/images/vi.png" alt="Viet nam" class="float-none mr-1"> <p>{{ $t('message') }}</p></div>
+                          </button>
+                          <button type="button" class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu bg-gray-800 hover:bg-gray-800">
+                            <div class="lang dropdown-item lang-select">
+                                <img src="/utils/images/eng.jpg" alt="Viet nam" class="float-none mr-1"> English
+                            </div>
+                          </div>
+                        </div>
+                    </li>
                 </ul>
                 <div class="flex flex-col md:flex-row items-center">
                     <SearchBar />
@@ -79,3 +94,20 @@ export default {
     }
 }
 </script>
+<style scoped>
+.lang{
+    position: relative;
+    float: left;
+    margin: auto;
+    align-items: center;
+    display: flex;
+}
+.lang-select{
+    color: white;
+}
+.lang-select:hover{
+    background-color:#1a202c;
+    cursor: pointer;
+}
+
+</style>
