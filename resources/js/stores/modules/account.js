@@ -8,7 +8,7 @@ export default {
     },
     getters: {
         IS_LOGGEND_IN: state => {
-            return state.isLoggedIn || state.currentUser; 
+            return state.isLoggedIn || state.currentUser;
         },
         CURRENT_USER: state => {
             return state.currentUser;
@@ -21,14 +21,14 @@ export default {
             state.currentUser = Object.assign({}, payload.user, {token: payload.access_token});
             localStorage.setItem('user', JSON.stringify(state.currentUser));
         },
-        LOG_OUT: state => {
+        LOG_OUT: async state => {
             if(router.currentRoute.name === 'login'){
                 return;
             }
             state.isLoggedIn = false;
             state.currentUser = {};
-            localStorage.removeItem('user');
-            router.replace('/');
+            await localStorage.removeItem('user');
+            await window.location.replace('/home');
         }
     },
     actions: {

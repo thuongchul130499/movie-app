@@ -26,6 +26,11 @@ class Actor extends Model
         'also_known_as' => JSON::class,
     ];
 
+    protected $searchable = [
+        'name',
+        'also_known_as'
+    ];
+
     public function movies()
     {
         return $this->belongsToMany(Movie::class);

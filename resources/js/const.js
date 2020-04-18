@@ -1,4 +1,5 @@
-const settings = {};
-config.host = 'http://localhost:8000/';
+const settings = {
+    host: window.location.origin + '/uploads/',
+};
 
 export default settings;

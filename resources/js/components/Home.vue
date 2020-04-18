@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     import NowPlaying from "./NowPlaying";
     import Popular from "./Popular";
     import Loading from "./Loading";
@@ -19,11 +19,19 @@
         components: { NowPlaying ,Popular, Loading },
         data(){
             return {
-                loading: this.$store.state.App.isLoading
+                loading: true,
             }
         },
         mounted(){
             this.GET_INDEX()
+        },
+        computed: {
+            ...mapState('App', ['isLoading'])
+        },
+        watch: {
+            isLoading(newValue, oldValue) {
+                !newValue ? this.loading = false :this.loading = true;
+            },
         },
         methods: {
             ...mapActions({

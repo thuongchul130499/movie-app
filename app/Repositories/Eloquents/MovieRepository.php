@@ -51,7 +51,7 @@ class MovieRepository extends BaseRepository implements MovieInterface {
     public function update($id, $data){
         try{
             DB::beginTransaction();
-            $movie = $this->find($id);            
+            $movie = $this->find($id);
             $imageDeletes = [];
             $poster_path = HandleImageService::addImage($data['poster'] ?? false, config('settings.movie.poster'));
             if($data['image_ids']){
@@ -81,10 +81,18 @@ class MovieRepository extends BaseRepository implements MovieInterface {
                     ->with($with)
                     ->findOrFail($id);
     }
-    
+
     public function destroy($id){
         $movie = $this->model()->find($id);
         return $movie->delete();
+    }
+
+    public function search($term, $with = []){
+        return $this->model()::search($term)
+            ->with($with)
+            ->where('title', 'LIKE', '%' . $term . '%')
+            ->orWhere('original_title', 'LIKE', '%' . $term . '%')
+            ->paginate(10);
     }
 
     private function getParamMovie($data, $poster_path = '', $backdrop_path = ''){

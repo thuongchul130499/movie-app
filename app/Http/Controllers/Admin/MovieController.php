@@ -76,6 +76,11 @@ class MovieController extends Controller
         return response()->json($this->movie->create($request->all()));
     }
 
+    public function show($id)
+    {
+        # code...//
+    }
+
     public function edit($id)
     {
         $with = ['images', 'genreses', 'actors'];

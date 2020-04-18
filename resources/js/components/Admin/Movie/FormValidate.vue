@@ -338,7 +338,7 @@ export default {
                 this.options = res.data.genres;
                 this.$store.commit('Actor/SET_ACTOR', res.data.actors);
                 this.actors = res.data.actors;
-            }) 
+            })
     },
     mounted () {
         if(this.type == 'edit'){

@@ -10,26 +10,26 @@
                 <form @submit.prevent="login">
                     <img src="/utils/images/avatar.svg">
                     <h2 class="title">Welcome</h2>
-                    <div 
+                    <div
 						class="input-div one"
 						ref="email"
 					>
 						<div class="i">
-							<i class="fas fa-user"></i>
+							<i class="fa fa-user"></i>
 						</div>
 						<div class="div">
 							<h5>Email</h5>
-							<input 
-								type="email" 
-								class="input" 
-								id="email" 
+							<input
+								type="email"
+								class="input"
+								id="email"
 								@focus="onFocus($event,'email')"
 								@blur="onBlur($event,'email')" v-model="email">
 						</div>
                     </div>
                     <div class="input-div pass" ref="password">
-						<div class="i"> 
-							<i class="fas fa-lock"></i>
+						<div class="i">
+							<i class="fa fa-lock"></i>
 						</div>
 						<div class="div">
 							<h5>Password</h5>
